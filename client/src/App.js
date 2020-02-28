@@ -20,7 +20,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.getUser()
+    // this.getUser()
   }
   
   updateUser(userObject) {
@@ -54,13 +54,13 @@ class App extends Component {
       <div>
         <NavLink to="/">Home</NavLink>
         <NavLink to="/about">About</NavLink>
-        <NavLink to="/blogs">Blogs</NavLink>
+        <NavLink to="/create">Create</NavLink>
         <NavLink to="/register">Register</NavLink>
         <NavLink to="/login">Login</NavLink>
         <NavLink to="/logout">Logout</NavLink>
-        <div><Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn}/></div>
+        <div><Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} username={this.state.username}/></div>
         {this.state.loggedIn &&
-          <p>Join the party, {this.state.username}!</p>
+          <p>Welcome, {this.state.username}!</p>
         }
         {/* <Blogs/> */}
       </div>
