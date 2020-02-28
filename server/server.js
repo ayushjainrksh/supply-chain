@@ -114,11 +114,8 @@ app.get("/blogs", function(req, res){
 
 //      Auth Routes
 app.get("/success", function(req, res){
-    // console.log(JSON.stringify(req));
-    // console.log("req.sesison : " + req.session);
     console.log(req.user.username);
     res.send(req.user.username);
-	// res.render("login");
 });
 
 app.get("/failure", function(req, res){
@@ -131,16 +128,17 @@ app.post("/login", passport.authenticate("local",{
 }), function(req, res) {
     console.log("AUTH : " + req.user);
     res.send(req.user.username);
-    // res.redirect("/success");
 });
 
-// app.get("/isloggedin", function(req, res) {
-//     console.log(req.user);
-//     if(req.user)
-//         res.send(req.user.currentUser);
-//     else
-//         res.send("Not logged in")
-// });
+app.get("/isloggedin", function(req, res, next) {
+    console.log(req.user);
+    // console.log(req.user)
+    if (req.user) {
+        res.json({ user: req.user })
+    } else {
+        res.json({ user: null })
+    }
+});
 
 app.post("/register", function(req, res){
     var user = new User({name : req.query.name, username : req.query.username});
@@ -164,6 +162,7 @@ app.post("/register", function(req, res){
 
 app.get("/logout", function(req, res){
     req.logout();
+    console.log("Server log out...");
     res.sendStatus(200);
 });
 
