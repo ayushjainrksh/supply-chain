@@ -36,16 +36,28 @@ class Blogs extends Component {
     
     render() {
       const {title, description} = this.state;
-      return(
-        <div>
-          <form onSubmit={this.handleSubmit}>
-              <label>Title:
-                <input key="title" type="text" name="title" value={title} onChange={this.handleChange}/>
-              </label>
-              <label>Description:
-                <input key="description" type="text" name="description" value={description} onChange={this.handleChange}/>
-              </label>
-              <button type="submit">Submit</button>
+      return(        
+        <div className="row">
+          <form className="col s12" onSubmit={this.handleSubmit}>
+            <div className="row">
+              <div className="input-field col s12">
+                <input id="title" key="title" type="text" name="title" value={title} onChange={this.handleChange} required/>
+              <label for="title">Title</label>
+              </div>
+            </div>
+            <div className="row">
+              <div className="input-field col s12">
+                <input id="description" key="description" type="text" name="description" value={description} onChange={this.handleChange} required/>
+              <label for="descrption">Description</label>
+              </div>
+            </div>
+            <div className="row">
+              <div className="input-field col s12">
+                <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                    <i class="material-icons right">send</i>
+                </button>
+              </div>
+            </div>
           </form>
         </div>
       )

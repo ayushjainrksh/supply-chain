@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom'
+// import logo from './images/logo.jpg'
 
 import Navbar from './components/Navbar'
 import Blogs from './components/Blogs'
@@ -52,12 +53,21 @@ class App extends Component {
   render() {
     return(
       <div>
-        <NavLink to="/">Home</NavLink>
-        <NavLink to="/about">About</NavLink>
-        <NavLink to="/create">Create</NavLink>
-        <NavLink to="/register">Register</NavLink>
-        <NavLink to="/login">Login</NavLink>
-        <NavLink to="/logout">Logout</NavLink>
+        <nav className="teal">
+
+        <div className="nav-wrapper">
+          <a href="#" className="brand-logo">SupplyChain</a>
+          <ul id="nav-mobile" className="right hide-on-med-and-down">
+            <li><NavLink exact  activeStyle={{backgroundColor:"#008580"}} to="/">Home</NavLink></li>
+            <li><NavLink exact  activeStyle={{backgroundColor:"#008580"}} to="/about">About</NavLink></li>
+            <li><NavLink exact  activeStyle={{backgroundColor:"#008580"}} to="/create">Create</NavLink></li>
+            <li><NavLink exact  activeStyle={{backgroundColor:"#008580"}} to="/register">Register</NavLink></li>
+            <li><NavLink exact  activeStyle={{backgroundColor:"#008580"}} to="/login">Login</NavLink></li>
+            <li><NavLink exact  activeStyle={{backgroundColor:"#008580"}} to="/logout">Logout</NavLink></li>
+          </ul>
+        </div>
+        </nav>
+
         <div><Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} username={this.state.username}/></div>
         {this.state.loggedIn &&
           <p>Welcome, {this.state.username}!</p>

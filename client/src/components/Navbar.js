@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import '../App.css'
 import { Switch, Route, Redirect } from 'react-router-dom';
-import axios from 'axios'
+// import axios from 'axios'
 
 import Register from './Register'
 import Blogs from './Blogs'
@@ -13,7 +13,7 @@ const Homepage = () => (<Blogs/>);
 const About = () => (<div>About</div>);
 const RegisterPage = () => (<Register/>);
 // const BlogsPage = () => (<Blogs/>);
-const CreatePage = () => (<Create/>);
+// const CreatePage = () => (<Create/>);
 
 
 const Navbar = (props) => {
