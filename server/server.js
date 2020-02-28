@@ -45,14 +45,14 @@ const blogSchema = new mongoose.Schema({
     title : String,
     // image : String,
     description : String,
-    // author : {
-    //     id : {
-    //         type : mongoose.Schema.Types.ObjectId,
-    //         rel : "User"
-    //     },
-    //     username : String
-    // }
-});
+    author : {
+        id : {
+            type : mongoose.Schema.Types.ObjectId,
+            rel : "User"
+        },
+        username : String
+    }
+}, {timestamps : true});
 
 const Blog = mongoose.model("Blog", blogSchema);
 
@@ -86,21 +86,33 @@ app.get("/", function(req, res){
 
 app.post("/", function(req, res) {
     // console.log(req);
-    console.log(req.query);
-
-    Blog.create({
-        title : req.query.title,
-        description : req.query.description,
-    }, function(err, foundBlog){
-        if(err)
-            console.log(err);
-        else{
-            foundBlog.save();
-            console.log(foundBlog);
-            res.redirect("/");
+    // console.log(req.query);
+    // const uid = null;
+    User.findOne({ username: req.query.username }, (err, user) => {
+        if (err) {
+            console.log('User.js post error: ', err)
+        } else if (user) {
+            console.log(user);
+            // uid = user._id;
+            Blog.create({
+                title : req.query.title,
+                description : req.query.description,
+                author : {
+                    id : user._id,
+                    username : req.query.username
+                }
+            }, function(err, foundBlog){
+                if(err)
+                    console.log(err);
+                else{
+                    foundBlog.save();
+                    console.log(foundBlog);
+                    res.redirect("/");
+                }
+            });
         }
-    });
-})
+    })
+});
 
 app.get("/blogs", function(req, res){
 	Blog.find({},function(err, foundBlog){
@@ -165,6 +177,37 @@ app.get("/logout", function(req, res){
     console.log("Server log out...");
     res.sendStatus(200);
 });
+
+//Auth functions
+function isLoggedIn(req, res, next){
+    console.log("USER : " + req.user);
+	if(req.user)
+        return next();
+	res.redirect("/login");
+}
+
+function isAuth(req, res, next){
+	if(req.isAuthenticated())
+	{
+		Blog.findById(req.params.id, function(err, foundBlog){
+	    	if(err)
+	    	{
+	    		res.redirect("back");
+	    	}
+	    	else
+	    	{
+	    		if(foundBlog.author.id.equals(req.user._id)){
+	    			return next();
+	    		}
+	    		res.redirect("back");
+	    	}
+		});
+	}
+    else
+    {
+    	res.redirect("/login");
+    }
+}
 
 
 
