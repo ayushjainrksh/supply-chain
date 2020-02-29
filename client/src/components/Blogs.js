@@ -18,7 +18,7 @@ const BlogItem = (props) => {
               <p>{props.description}</p>
             </div>
             <div className="card-action">
-              <NavLink to={url}>Link</NavLink>
+              <NavLink to={url} className="btn btn-small waves-effect waves-light">View post</NavLink>
               {/* <View/> */}
             </div>
           </div>
@@ -65,12 +65,10 @@ class Blogs extends Component {
       const blogs = this.state.blogs.map((blg, index) => (
         <BlogItem key={index} title={blg.title} description={blg.description} author={blg.author} time={blg.time} _id={blg._id}/>
         ))
-
       return(
         <div className="row">
-
           <Switch>
-            <Route path='/blogs/:id' render = {(props) => <View {...props}/>}>
+            <Route path='/blogs/:id' render = {(props) => <View {...props} username={this.props.username}/>}>
             </Route>
             <Route path={'/'}>
               {blogs}

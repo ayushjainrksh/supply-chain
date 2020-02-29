@@ -45,20 +45,20 @@ class Blogs extends Component {
               <div className="row">
                 <div className="input-field col s12">
                   <input id="title" key="title" type="text" name="title" value={title} onChange={this.handleChange} required/>
-                <label for="title">Title</label>
+                <label htmlFor="title">Title</label>
                 </div>
               </div>
               <div className="row">
                 <div className="input-field col s12">
-                  <textarea id="description" class="materialize-textarea" key="description" type="text" name="description" value={description} onChange={this.handleChange} required></textarea>
+                  <textarea id="description" className="materialize-textarea" key="description" type="text" name="description" value={description} onChange={this.handleChange} required></textarea>
                   {/* <input id="description" key="description" type="text" name="description" value={description} onChange={this.handleChange} required/> */}
-                <label for="descrption">Description</label>
+                <label htmlFor="descrption">Description</label>
                 </div>
               </div>
               <div className="row">
                 <div className="input-field col s12">
-                  <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-                      <i class="material-icons right">send</i>
+                  <button className="btn waves-effect waves-light" type="submit" name="action">Submit
+                      <i className="material-icons right">send</i>
                   </button>
                 </div>
               </div>

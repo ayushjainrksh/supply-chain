@@ -46,32 +46,32 @@ class Register extends Component {
             <div className="register">
                 <h4>Let's get started!</h4>
                 <div className="row">
-                    <form class="col s12" onSubmit={this.handleSubmit}>
+                    <form className="col s12" onSubmit={this.handleSubmit}>
                         <div className="row">
                             <div className="input-field col s12">
                                 <input id="name" type="text" className="validate" key="name" name="name" value={name} onChange={this.handleChange}>
                                 </input>
-                                <label for="name">Name</label>
+                                <label htmlFor="name">Name</label>
                             </div>
                         </div>
                         <div className="row">
                             <div className="input-field col s12">
-                                <input id="email" type="email" class="validate" key="username" name="username" value={username} onChange={this.handleChange}>
+                                <input id="email" type="email" className="validate" key="username" name="username" value={username} onChange={this.handleChange}>
                                 </input>
-                                <label for="email">Email</label>
+                                <label htmlFor="email">Email</label>
                             </div>
                         </div>
                         <div className="row">
                             <div className="input-field col s12">
-                                <input id="password" type="password" class="validate" key="password" name="password" value={password} onChange={this.handleChange}>
+                                <input id="password" type="password" className="validate" key="password" name="password" value={password} onChange={this.handleChange}>
                                 </input>
-                                <label for="password">Password</label>
+                                <label htmlFor="password">Password</label>
                             </div>
                         </div>
                         <div className="row">
                             <div className="input-field col s12">
-                                <button class="btn waves-effect waves-light" type="submit" name="action">Register
-                                    <i class="material-icons right">send</i>
+                                <button className="btn waves-effect waves-light" type="submit" name="action">Register
+                                    <i className="material-icons right">send</i>
                                 </button>
                             </div>
                         </div>

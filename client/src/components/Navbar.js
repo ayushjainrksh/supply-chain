@@ -10,7 +10,7 @@ import Logout from './Logout'
 import Create from './Create'
 import View from './View'
 
-const Homepage = () => (<Blogs/>);
+// const Homepage = () => (<Blogs/>);
 const About = () => (<div>About</div>);
 const RegisterPage = () => (<Register/>);
 // const BlogsPage = () => (<Blogs/>);
@@ -25,7 +25,7 @@ const Navbar = (props) => {
             <Route path="/register" component={RegisterPage}/>
             <Route path="/login" render={() => <Login loggedIn={props.loggedIn} updateUser={props.updateUser}/>}/>
             <Route path="/logout" render={() => <Logout updateUser={props.updateUser}/>}/>
-            <Route path="/" component={Homepage}/>
+            <Route path="/" render={() => <Blogs username={props.username}/>}/>
         </Switch>
     )};
 

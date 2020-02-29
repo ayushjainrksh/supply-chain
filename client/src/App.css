@@ -16,3 +16,28 @@
   width: 50%;
   margin: 50px auto;
 }
+
+.comment strong{
+  font-size: .9em;
+}
+
+#comTime {
+  color: gray;
+}
+
+#comText {
+  font-size: 1em;
+}
+
+.cardTitle {
+  margin: 1em 2em;
+}
+
+.cardAuthor {
+  margin-left: 2em;
+}
+
+.cardTime {
+  color: gray;
+  font-size: .8em;
+}
