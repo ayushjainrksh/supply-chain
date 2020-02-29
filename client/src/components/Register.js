@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import '../App.css'
 import axios from 'axios'
 
 class Register extends Component {
@@ -42,37 +43,40 @@ class Register extends Component {
     render() {
         const {name, username, password} = this.state;
         return (
-            <div className="row">
-                <form class="col s12" onSubmit={this.handleSubmit}>
-                    <div className="row">
-                        <div className="input-field col s12">
-                            <input id="name" type="text" className="validate" key="name" name="name" value={name} onChange={this.handleChange}>
-                            </input>
-                            <label for="name">Name</label>
+            <div className="register">
+                <h4>Let's get started!</h4>
+                <div className="row">
+                    <form class="col s12" onSubmit={this.handleSubmit}>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <input id="name" type="text" className="validate" key="name" name="name" value={name} onChange={this.handleChange}>
+                                </input>
+                                <label for="name">Name</label>
+                            </div>
                         </div>
-                    </div>
-                    <div className="row">
-                        <div className="input-field col s12">
-                            <input id="email" type="email" class="validate" key="username" name="username" value={username} onChange={this.handleChange}>
-                            </input>
-                            <label for="email">Email</label>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <input id="email" type="email" class="validate" key="username" name="username" value={username} onChange={this.handleChange}>
+                                </input>
+                                <label for="email">Email</label>
+                            </div>
                         </div>
-                    </div>
-                    <div className="row">
-                        <div className="input-field col s12">
-                            <input id="password" type="password" class="validate" key="password" name="password" value={password} onChange={this.handleChange}>
-                            </input>
-                            <label for="password">Password</label>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <input id="password" type="password" class="validate" key="password" name="password" value={password} onChange={this.handleChange}>
+                                </input>
+                                <label for="password">Password</label>
+                            </div>
                         </div>
-                    </div>
-                    <div className="row">
-                        <div className="input-field col s12">
-                            <button class="btn waves-effect waves-light" type="submit" name="action">Register
-                                <i class="material-icons right">send</i>
-                            </button>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <button class="btn waves-effect waves-light" type="submit" name="action">Register
+                                    <i class="material-icons right">send</i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         )
         {/* <form onSubmit={this.handleSubmit}>

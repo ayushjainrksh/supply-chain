@@ -2,6 +2,17 @@
   
 }
 
-.logo {
-  width: 2em;
+.create {
+  width: 50%;
+  margin: 50px auto;
+}
+
+.register {
+  width: 50%;
+  margin: 50px auto;
+}
+
+.login {
+  width: 50%;
+  margin: 50px auto;
 }

@@ -61,39 +61,34 @@ class Login extends Component {
         }
         else {
             return (
-                <div className="row">
-                    <form onSubmit={this.handleSubmit}>
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <input id="email" type="email" class="validate" key="username" name="username" value={username} onChange={this.handleChange}>
-                                </input>
-                                <label for="email">Email</label>
+                <div className="login">
+                    <h4>Sign in</h4>
+                    <div className="row">
+                        <form onSubmit={this.handleSubmit}>
+                            <div className="row">
+                                <div className="input-field col s12">
+                                    <input id="email" type="email" class="validate" key="username" name="username" value={username} onChange={this.handleChange} required>
+                                    </input>
+                                    <label for="email">Email</label>
+                                </div>
                             </div>
-                        </div>
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <input id="password" type="password" class="validate" key="password" name="password" value={password} onChange={this.handleChange}>
-                                </input>
-                                <label for="password">Password</label>
+                            <div className="row">
+                                <div className="input-field col s12">
+                                    <input id="password" type="password" class="validate" key="password" name="password" value={password} onChange={this.handleChange} required>
+                                        </input>
+                                    <label for="password">Password</label>
+                                </div>
                             </div>
-                        </div>
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <button class="btn waves-effect waves-light" type="submit" name="action">Login
-                                    <i class="material-icons right">send</i>
-                                </button>
+                            <div className="row">
+                                <div className="input-field col s12">
+                                    <button class="btn waves-effect waves-light" type="submit" name="action">Login
+                                        <i class="material-icons right">send</i>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
-            //     <label>Email
-            //         <input key="username" type="email" name="username" value={username} onChange={this.handleChange}/>
-            //     </label>
-            //     <label>Password
-            //         <input key="password" type="password" name="password" value={password} onChange={this.handleChange}/>
-            //     </label>
-            //     <button type="submit">Log In</button>
-            // </form>
             )
         }
     }

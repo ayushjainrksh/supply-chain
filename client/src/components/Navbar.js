@@ -8,6 +8,7 @@ import Blogs from './Blogs'
 import Login from './Login'
 import Logout from './Logout'
 import Create from './Create'
+import View from './View'
 
 const Homepage = () => (<Blogs/>);
 const About = () => (<div>About</div>);

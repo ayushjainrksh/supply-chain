@@ -40,6 +40,20 @@ userSchema.plugin(passportLocalMongoose);
 
 const User = mongoose.model("User", userSchema);
 
+// Comment Schema
+var commentSchema = mongoose.Schema({
+	text : String,
+	author : {
+		id : {
+			type : mongoose.Schema.Types.ObjectId,
+			ref : "User"
+		},
+		username : String
+	}
+}, {timestamps: true});
+
+const Comment = mongoose.model("Comment", commentSchema);
+
 // Blog Schema
 const blogSchema = new mongoose.Schema({
     title : String,
@@ -51,12 +65,19 @@ const blogSchema = new mongoose.Schema({
             rel : "User"
         },
         username : String
-    }
+    },
+    comments : [
+        {
+           type : mongoose.Schema.Types.ObjectId,
+           ref : "Comment"
+        }
+    ]
 }, {timestamps : true});
 
 const Blog = mongoose.model("Blog", blogSchema);
 
 
+// Passport Setup
 app.use(require("express-session")({
     secret : "I am AJ",
     resave : false,
@@ -123,6 +144,52 @@ app.get("/blogs", function(req, res){
 	});
 });
 
+app.get("/blogs/:id", function(req, res){
+    Blog.findById(req.params.id).populate("comments").exec(function(err, foundBlog){
+        if(err)
+            console.log(err);
+        else
+            console.log(foundBlog);
+            res.send(foundBlog);
+    });
+});
+
+//    Comment Routes
+app.post("/blogs/:id", function(req, res) {
+    User.findOne({username : req.query.username}, (err, user) => {
+        if(err)
+            console.log(err);
+        else if(user)
+        {
+            Blog.findById(req.params.id,function(err,foundBlog){
+                if(err)
+                    console.log(err);
+                else
+                {
+                    var newComment = {  text : req.query.text , 
+                                           author:{
+                                               id : user._id,
+                                               username : req.query.username
+                                           }
+                                       };
+                    Comment.create(newComment, function(err,newComment){
+                        if(err)
+                            console.log(err);
+                        else
+                        {
+                            newComment.save();
+                            console.log(newComment);
+                            foundBlog.comments.push(newComment);
+                            foundBlog.save();
+                            res.sendStatus(200);
+                            // res.redirect("/dogs/"+req.params.id+"/show");
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
 
 //      Auth Routes
 app.get("/success", function(req, res){

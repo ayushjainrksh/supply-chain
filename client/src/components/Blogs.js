@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { NavLink, Route, Switch, useRouteMatch } from 'react-router-dom';
+
+import View from "./View"
 
 const BlogItem = (props) => {
+    const url = "/blogs/"+props._id;
+    console.log(url)
     return(
-      // <div className="row">
         <div className="col s12 m4">
           <div className="card small">
             <div className="card-image">
@@ -14,11 +18,11 @@ const BlogItem = (props) => {
               <p>{props.description}</p>
             </div>
             <div className="card-action">
-              <a href="#">This is a link</a>
+              <NavLink to={url}>Link</NavLink>
+              {/* <View/> */}
             </div>
           </div>
         </div>
-      // </div>
     );
 }
   
@@ -31,7 +35,8 @@ class Blogs extends Component {
           title: "",
           description: "",
           author: "",
-          time: ""
+          time: "",
+          id: ""
         }]
       }
   
@@ -48,7 +53,8 @@ class Blogs extends Component {
             title: blg.title,
             description: blg.description,
             author: blg.author.username,
-            time: blg.createdAt
+            time: blg.createdAt,
+            _id: blg._id
           }
         })
         this.setState({blogs: blogs})
@@ -57,14 +63,22 @@ class Blogs extends Component {
   
     render() {
       const blogs = this.state.blogs.map((blg, index) => (
-        <BlogItem key={index} title={blg.title} description={blg.description} author={blg.author} time={blg.time} />
-      ))
+        <BlogItem key={index} title={blg.title} description={blg.description} author={blg.author} time={blg.time} _id={blg._id}/>
+        ))
 
       return(
         <div className="row">
-          {blogs}
+
+          <Switch>
+            <Route path='/blogs/:id' render = {(props) => <View {...props}/>}>
+            </Route>
+            <Route path={'/'}>
+              {blogs}
+            </Route>
+          </Switch>
+
         </div>
-      )
+        )
     }
   }
   

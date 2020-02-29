@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom'
-// import logo from './images/logo.jpg'
 
 import Navbar from './components/Navbar'
 import Blogs from './components/Blogs'
@@ -54,25 +53,31 @@ class App extends Component {
     return(
       <div>
         <nav className="teal">
-
-        <div className="nav-wrapper">
-          <a href="#" className="brand-logo">SupplyChain</a>
-          <ul id="nav-mobile" className="right hide-on-med-and-down">
-            <li><NavLink exact  activeStyle={{backgroundColor:"#008580"}} to="/">Home</NavLink></li>
-            <li><NavLink exact  activeStyle={{backgroundColor:"#008580"}} to="/about">About</NavLink></li>
-            <li><NavLink exact  activeStyle={{backgroundColor:"#008580"}} to="/create">Create</NavLink></li>
-            <li><NavLink exact  activeStyle={{backgroundColor:"#008580"}} to="/register">Register</NavLink></li>
-            <li><NavLink exact  activeStyle={{backgroundColor:"#008580"}} to="/login">Login</NavLink></li>
-            <li><NavLink exact  activeStyle={{backgroundColor:"#008580"}} to="/logout">Logout</NavLink></li>
-          </ul>
-        </div>
+          <div className="nav-wrapper">
+            <a href="#" className="brand-logo">SupplyChain</a>
+            <ul id="nav-mobile" className="right hide-on-med-and-down">
+              <li>  {this.state.loggedIn &&
+                    <div>Welcome, {this.state.username}</div>
+                    }
+              </li>
+              <li><NavLink exact  activeStyle={{backgroundColor:"#008580"}} to="/">Home</NavLink></li>
+              <li><NavLink exact  activeStyle={{backgroundColor:"#008580"}} to="/about">About</NavLink></li>
+              {this.state.loggedIn && 
+              <li><NavLink exact  activeStyle={{backgroundColor:"#008580"}} to="/create">Create</NavLink></li>
+              }
+              {this.state.loggedIn && 
+              <li><NavLink exact  activeStyle={{backgroundColor:"#008580"}} to="/logout">Logout</NavLink></li>
+              }
+              {!this.state.loggedIn &&
+              <li><NavLink exact  activeStyle={{backgroundColor:"#008580"}} to="/register">Register</NavLink></li>
+              }
+              {!this.state.loggedIn &&       
+              <li><NavLink exact  activeStyle={{backgroundColor:"#008580"}} to="/login">Login</NavLink></li>
+              }
+            </ul>
+          </div>
         </nav>
-
         <div><Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} username={this.state.username}/></div>
-        {this.state.loggedIn &&
-          <p>Welcome, {this.state.username}!</p>
-        }
-        {/* <Blogs/> */}
       </div>
     )
   }
