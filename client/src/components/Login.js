@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { Redirect } from 'react-router-dom';
 
 class Login extends Component {
     constructor() {
@@ -7,6 +8,7 @@ class Login extends Component {
         this.state =  {
             username : "",
             password : "",
+            flag: Number
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,12 +34,8 @@ class Login extends Component {
         }
         })
     .then(res => {
-            if(res.status == 200)
+            if(res.status === 200)
             {
-                console.log("Logged In");
-                console.log(this.props);
-                console.log("LOGGG  : " + this.props.loggedIn);
-                console.log("USDF : " + res.data);
                 this.props.updateUser({
                     loggedIn: true,
                     username: res.data
@@ -45,6 +43,7 @@ class Login extends Component {
             }
             else
             {
+                this.setState({flag:2})
                 console.log("Failed to log in");
             }
             console.log(res.data);
@@ -52,12 +51,9 @@ class Login extends Component {
     }
 
     render() {
-        const {username, password, isloggedin} = this.state;
-        console.log(isloggedin);
-        if(isloggedin=="true"){
-            return(
-                <div>Hello</div>
-            )
+        const {username, password, flag} = this.state;
+        if(this.props.loggedIn==true){
+            return <Redirect to={{ pathname : "/"}}></Redirect>;
         }
         else {
             return (
@@ -79,6 +75,9 @@ class Login extends Component {
                                     <label htmlFor="password">Password</label>
                                 </div>
                             </div>
+                            {flag === 2 &&
+                                <div className="red-text">Invalid Credentials</div>
+                            }
                             <div className="row">
                                 <div className="input-field col s12">
                                     <button className="btn waves-effect waves-light" type="submit" name="action">Login

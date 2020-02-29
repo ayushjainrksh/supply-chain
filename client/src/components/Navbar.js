@@ -9,9 +9,10 @@ import Login from './Login'
 import Logout from './Logout'
 import Create from './Create'
 import View from './View'
+import About from './About'
 
 // const Homepage = () => (<Blogs/>);
-const About = () => (<div>About</div>);
+const AboutPage = () => (<About/>);
 const RegisterPage = () => (<Register/>);
 // const BlogsPage = () => (<Blogs/>);
 // const CreatePage = () => (<Create/>);
@@ -20,8 +21,10 @@ const RegisterPage = () => (<Register/>);
 const Navbar = (props) => {
     return(
         <Switch>
-            <Route path="/about" component={About}/>
+            <Route path="/about" component={AboutPage}/>
+            {props.username && 
             <Route path="/create" render={() =><Create username={props.username}/>}/>
+            }
             <Route path="/register" component={RegisterPage}/>
             <Route path="/login" render={() => <Login loggedIn={props.loggedIn} updateUser={props.updateUser}/>}/>
             <Route path="/logout" render={() => <Logout updateUser={props.updateUser}/>}/>

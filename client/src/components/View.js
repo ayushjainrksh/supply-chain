@@ -48,7 +48,9 @@ class View extends Component {
 
         axios.post('http://localhost:5000/blogs/'+this.props.match.params.id, null, {params: comment})
         .then(res => {
-            // console.log(res);
+            console.log(res);
+            // this.setState({state: this.state});
+            // this.forceUpdate();
             console.log(res.data);
         })
     }
@@ -77,11 +79,11 @@ class View extends Component {
     }
     
     render() {
+        this.componentDidMount();
         const comments = this.state.comments.map((com, index) => (
             <CommentItem key={index} text={com.text} time={com.time} author={com.author}/>
             ))
         const {text} = this.state;
-        // console.log(commentText);
         return(
             <div>
                 <div className="row">
@@ -119,9 +121,15 @@ class View extends Component {
                                         <label htmlFor="text">Add a comment</label>
                                     </div>
                                     <div className="input-field col s4 right">
-                                        <button style={{"marginTop":"10px"}} className="btn-small waves-effect waves-light" type="submit" name="action">
-                                            <i className="material-icons">send</i>
-                                        </button>
+                                        {this.props.username != null ?
+                                            <button style={{"marginTop":"10px"}} className="btn-small waves-effect waves-light" type="submit" name="action">
+                                                <i className="material-icons">send</i>
+                                            </button>
+                                            :
+                                            <button style={{"marginTop":"10px"}} className="btn-small waves-effect waves-light" type="submit" name="action" disabled>
+                                                <i className="material-icons">send</i>
+                                            </button>
+                                        }
                                     </div>
                                 </div>
                             </form>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import '../App.css'
 import axios from 'axios'
+import { Redirect } from 'react-router-dom';
   
 class Blogs extends Component {
     constructor() {
@@ -8,7 +9,8 @@ class Blogs extends Component {
   
       this.state = {
         title: "",
-        description: ""
+        description: "",
+        created: Boolean
       }
   
       this.handleChange = this.handleChange.bind(this);
@@ -30,13 +32,16 @@ class Blogs extends Component {
   
         axios.post('http://localhost:5000/', null, {params: blog})
         .then(res => {
-            // console.log(res);
-            console.log(res.data);
+            this.setState({created: true});
         })
     }
     
     render() {
-      const {title, description} = this.state;
+      const {title, description, created} = this.state;
+      if(created == true) {
+        return <Redirect to={{pathname : "/"}}></Redirect>
+      }
+      else {
       return(
         <div className="create">
           <h4>Create your blog!</h4>
@@ -68,5 +73,6 @@ class Blogs extends Component {
       )
     }
   }
+}
   
 export default Blogs;

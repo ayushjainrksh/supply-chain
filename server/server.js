@@ -24,15 +24,12 @@ mongoose.connect("mongodb://localhost/supply_db");
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
-        // required: true
     },
     usernames: {
         type: String,
-        // required: true
     },
     password: {
         type: String,
-        // required: true
     }
 })
 
@@ -103,7 +100,7 @@ app.use(function(req, res, next){
 
 app.get("/", function(req, res){
     res.send(JSON.stringify({Hi:"hello"}));
- });
+});
 
 app.post("/", function(req, res) {
     // console.log(req);
@@ -193,19 +190,20 @@ app.post("/blogs/:id", function(req, res) {
 
 //      Auth Routes
 app.get("/success", function(req, res){
-    console.log(req.user.username);
+    // console.log(req.user.username);
     res.send(req.user.username);
 });
 
 app.get("/failure", function(req, res){
-    res.send("Failed");
+    // res.send("Failed");
+    res.sendStatus(204);
 });
 
 app.post("/login", passport.authenticate("local",{
         //  successRedirect : "/success",
          failureRedirect : "/failure"
 }), function(req, res) {
-    console.log("AUTH : " + req.user);
+    // console.log("AUTH : " + req.user);
     res.send(req.user.username);
 });
 

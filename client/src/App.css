@@ -54,3 +54,16 @@
   color: teal;
   margin:0 10px;
 }
+
+.navIcons {
+  font-size: 2em !important;
+}
+
+.userSpan {
+  margin-top: 20px;
+  /* font-size: 1.5em; */
+}
+
+.aboutOuter {
+  margin: 30px 5%;
+}

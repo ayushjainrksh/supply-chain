@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import '../App.css'
 import axios from 'axios'
+import { Redirect } from 'react-router-dom';
 
 class Register extends Component {
     constructor() {
@@ -8,7 +9,8 @@ class Register extends Component {
         this.state =  {
             name : "",
             username : "",
-            password : ""
+            password : "",
+            isRegistered: Boolean
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,21 +29,21 @@ class Register extends Component {
         }
         console.log(user);
 
-    axios.post('http://localhost:5000/register', null, {params: user})
-    .then(res => {
-        if(res.status == 200)
-        {
-            console.log("Account created");
-            this.setState({isRegistered: true})
-        }
-        console.log("STATUS : " + res.status);
-        console.log(res);
-        console.log(res.data);
-    })
+        axios.post('http://localhost:5000/register', null, {params: user})
+        .then(res => {
+            if(res.status == 200)
+            {
+                console.log("Account created");
+                this.setState({isRegistered: true})
+            }
+        })
     }
 
     render() {
-        const {name, username, password} = this.state;
+        const {name, username, password, isRegistered} = this.state;
+        if(isRegistered == true)
+            return <Redirect to={{pathname: "/login"}}></Redirect>
+        else {
         return (
             <div className="register">
                 <h4>Let's get started!</h4>
@@ -79,18 +81,7 @@ class Register extends Component {
                 </div>
             </div>
         )
-        {/* <form onSubmit={this.handleSubmit}>
-            <label>Name
-                <input key="name" type="text" name="name" value={name} onChange={this.handleChange}/>
-            </label>
-            <label>Email
-                <input key="username" type="email" name="username" value={username} onChange={this.handleChange}/>
-            </label>
-            <label>Password
-                <input key="password" type="password" name="password" value={password} onChange={this.handleChange}/>
-            </label>
-            <button type="submit">Sign Up</button>
-        </form> */}
+        }
     }
 }
 

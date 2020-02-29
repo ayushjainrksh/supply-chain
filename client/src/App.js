@@ -4,7 +4,7 @@ import axios from 'axios';
 import { NavLink } from 'react-router-dom'
 import M from "materialize-css/dist/js/materialize.min.js";
 import "materialize-css/dist/css/materialize.min.css";
-
+// import logo from './images/logo.png'
 import Navbar from './components/Navbar'
 import Blogs from './components/Blogs'
 
@@ -31,9 +31,7 @@ class App extends Component {
   }
   
   updateUser(userObject) {
-    // return "hello"
-    console.log(userObject)
-    this.setState(userObject)
+    this.setState(userObject);
   }
   
   getUser() {
@@ -61,10 +59,14 @@ class App extends Component {
       <div>
         <nav className="teal">
           <div className="nav-wrapper">
-            <NavLink to="/" className="brand-logo">SupplyChain</NavLink>
+            <NavLink to="/" className="brand-logo">SupplyChain<i className="navIcons material-icons">airport_shuttle</i></NavLink>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
               <li>  {this.state.loggedIn &&
-                    <div>Welcome, {this.state.username}</div>
+                    <div style={{margin: "0 20px"}}>
+                      <span className="new badge red userSpan" data-badge-caption="">
+                        {this.state.username.substr(0, this.state.username.indexOf('@'))}
+                      </span>
+                    </div>
                     }
               </li>
               <li><NavLink exact  activeStyle={{backgroundColor:"#008580"}} to="/">Home</NavLink></li>
@@ -83,8 +85,12 @@ class App extends Component {
               }
             </ul>
             <ul id="slide-out" className="sidenav">
-              <li>  {this.state.loggedIn &&
-                    <div id="userName">Welcome, {this.state.username}</div>
+            <li>  {this.state.loggedIn &&
+                    <div style={{margin: "0 20px"}}>
+                      <span className="new badge red userSpan" data-badge-caption="">
+                        {this.state.username.substr(0, this.state.username.indexOf('@'))}
+                      </span>
+                    </div>
                     }
               </li>
               <li><NavLink exact  activeStyle={{backgroundColor:"#008580"}} to="/">Home</NavLink></li>
