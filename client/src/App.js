@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom'
+import M from "materialize-css/dist/js/materialize.min.js";
+import "materialize-css/dist/css/materialize.min.css";
 
 import Navbar from './components/Navbar'
 import Blogs from './components/Blogs'
@@ -21,6 +23,11 @@ class App extends Component {
 
   componentDidMount() {
     // this.getUser()
+    var elem = document.querySelector(".sidenav");
+    var instance = M.Sidenav.init(elem, {
+        edge: "left",
+        inDuration: 250
+    });
   }
   
   updateUser(userObject) {
@@ -54,7 +61,7 @@ class App extends Component {
       <div>
         <nav className="teal">
           <div className="nav-wrapper">
-            <a href="#" className="brand-logo">SupplyChain</a>
+            <NavLink to="/" className="brand-logo">SupplyChain</NavLink>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
               <li>  {this.state.loggedIn &&
                     <div>Welcome, {this.state.username}</div>
@@ -75,6 +82,27 @@ class App extends Component {
               <li><NavLink exact  activeStyle={{backgroundColor:"#008580"}} to="/login">Login</NavLink></li>
               }
             </ul>
+            <ul id="slide-out" className="sidenav">
+              <li>  {this.state.loggedIn &&
+                    <div id="userName">Welcome, {this.state.username}</div>
+                    }
+              </li>
+              <li><NavLink exact  activeStyle={{backgroundColor:"#008580"}} to="/">Home</NavLink></li>
+              <li><NavLink exact  activeStyle={{backgroundColor:"#008580"}} to="/about">About</NavLink></li>
+              {this.state.loggedIn && 
+              <li><NavLink exact  activeStyle={{backgroundColor:"#008580"}} to="/create">Create</NavLink></li>
+              }
+              {this.state.loggedIn && 
+              <li><NavLink exact  activeStyle={{backgroundColor:"#008580"}} to="/logout">Logout</NavLink></li>
+              }
+              {!this.state.loggedIn &&
+              <li><NavLink exact  activeStyle={{backgroundColor:"#008580"}} to="/register">Register</NavLink></li>
+              }
+              {!this.state.loggedIn &&       
+              <li><NavLink exact  activeStyle={{backgroundColor:"#008580"}} to="/login">Login</NavLink></li>
+              }
+            </ul>
+            <a href="#" data-target="slide-out" className="sidenav-trigger"><i className="material-icons">menu</i></a>
           </div>
         </nav>
         <div><Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} username={this.state.username}/></div>

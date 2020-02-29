@@ -19,6 +19,11 @@ const BlogItem = (props) => {
             </div>
             <div className="card-action">
               <NavLink to={url} className="btn btn-small waves-effect waves-light">View post</NavLink>
+              <div className="cardTime right">
+                <div><strong>{props.author}</strong></div>
+                {props.time.substr(props.time.indexOf('T')+1,props.time.indexOf('.')-props.time.indexOf('T')-1)}<span> </span>
+                {props.time.substr(0, props.time.indexOf('T'))}
+              </div>
               {/* <View/> */}
             </div>
           </div>

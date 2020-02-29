@@ -1,5 +1,5 @@
-.navbar {
-  
+.nav-wrapper {
+  margin: 0 20px;
 }
 
 .create {
@@ -40,4 +40,17 @@
 .cardTime {
   color: gray;
   font-size: .8em;
+}
+
+.viewCard {
+  height: 100% !important;
+}
+
+.viewCardImage { 
+  height: 300px !important;
+}
+
+#userName { 
+  color: teal;
+  margin:0 10px;
 }

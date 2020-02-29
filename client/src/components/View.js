@@ -5,7 +5,11 @@ import '../App.css'
 const CommentItem = (props) => {
     return(
         <div className="card-panel comment">
-            <strong>{props.author}</strong>  <span id="comTime">{props.time}</span>
+            <strong>{props.author}</strong>
+            <span id="comTime">
+            {props.time.substr(props.time.indexOf('T')+1,props.time.indexOf('.')-props.time.indexOf('T')-1)}<span> </span>
+            {props.time.substr(0, props.time.indexOf('T'))}
+            </span>
             <div id="comText">{props.text}</div>
         </div>
     )
@@ -82,21 +86,24 @@ class View extends Component {
             <div>
                 <div className="row">
                     <div className="col s12 m8">
-                        <div className="card large">
-                            <div className="card-image">
+                        <div className="card large viewCard">
+                            <div className="card-image viewCardImage">
                                 <img src="https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"/>
                             </div>
-                            <div className="row">
+                            {/* <div className="row"> */}
                                 <div className="cardTitle">
                                     <span className="card-title">{this.state.title}</span>
                                 </div>
                                 <div className="cardAuthor">
                                     <div><strong>{this.state.author}</strong></div>
-                                    <div className="cardTime">{this.state.time}</div>
+                                    <div className="cardTime">
+                                        {this.state.time.substr(this.state.time.indexOf('T')+1,this.state.time.indexOf('.')-this.state.time.indexOf('T')-1)}<span> </span>
+                                        {this.state.time.substr(0, this.state.time.indexOf('T'))}
+                                     </div>
                                 </div>
-                            </div>
+                            {/* </div> */}
                             <div className="card-content">
-                                <p>{this.state.description}</p>
+                                {this.state.description}
                             </div>
                         </div>
                     </div>
