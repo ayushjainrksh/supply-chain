@@ -14,7 +14,7 @@ app.use(express.static("assets"));
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(cors());
 
-mongoose.connect("mongodb://localhost/supply_db");
+mongoose.connect("mongodb://localhost/supply_db", {useNewUrlParser: true, useUnifiedTopology: true });
 
 // ############################
 //          SCHEMAS
@@ -78,7 +78,7 @@ const Blog = mongoose.model("Blog", blogSchema);
 app.use(require("express-session")({
     secret : "I am AJ",
     resave : false,
-    saveUninitialized : false      
+    saveUninitialized : false
 }));
 
 app.use(passport.initialize());
@@ -89,7 +89,6 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use(function(req, res, next){
     res.locals.currentUser = req.user;
-    // console.log('req.session : '+req.session);
     next();
 });
 
@@ -98,20 +97,18 @@ app.use(function(req, res, next){
 //          ROUTES
 // ########################
 
+//Test Route
 app.get("/", function(req, res){
     res.send(JSON.stringify({Hi:"hello"}));
 });
 
+//Blog Routes
 app.post("/", function(req, res) {
-    // console.log(req);
-    // console.log(req.query);
-    // const uid = null;
     User.findOne({ username: req.query.username }, (err, user) => {
         if (err) {
-            console.log('User.js post error: ', err)
+            console.log(err)
         } else if (user) {
-            console.log(user);
-            // uid = user._id;
+            // console.log(user);
             Blog.create({
                 title : req.query.title,
                 description : req.query.description,
@@ -124,12 +121,12 @@ app.post("/", function(req, res) {
                     console.log(err);
                 else{
                     foundBlog.save();
-                    console.log(foundBlog);
+                    // console.log(foundBlog);
                     res.redirect("/");
                 }
             });
         }
-    })
+    });
 });
 
 app.get("/blogs", function(req, res){
@@ -146,7 +143,7 @@ app.get("/blogs/:id", function(req, res){
         if(err)
             console.log(err);
         else
-            console.log(foundBlog);
+            // console.log(foundBlog);
             res.send(foundBlog);
     });
 });
@@ -164,22 +161,21 @@ app.post("/blogs/:id", function(req, res) {
                 else
                 {
                     var newComment = {  text : req.query.text , 
-                                           author:{
-                                               id : user._id,
-                                               username : req.query.username
-                                           }
-                                       };
+                                        author:{
+                                            id : user._id,
+                                            username : req.query.username
+                                        }
+                                    };
                     Comment.create(newComment, function(err,newComment){
                         if(err)
                             console.log(err);
                         else
                         {
                             newComment.save();
-                            console.log(newComment);
+                            // console.log(newComment);
                             foundBlog.comments.push(newComment);
                             foundBlog.save();
                             res.sendStatus(200);
-                            // res.redirect("/dogs/"+req.params.id+"/show");
                         }
                     });
                 }
@@ -190,26 +186,21 @@ app.post("/blogs/:id", function(req, res) {
 
 //      Auth Routes
 app.get("/success", function(req, res){
-    // console.log(req.user.username);
     res.send(req.user.username);
 });
 
 app.get("/failure", function(req, res){
-    // res.send("Failed");
-    res.sendStatus(204);
+    res.sendStatus(401);
 });
 
 app.post("/login", passport.authenticate("local",{
         //  successRedirect : "/success",
          failureRedirect : "/failure"
 }), function(req, res) {
-    // console.log("AUTH : " + req.user);
     res.send(req.user.username);
 });
 
 app.get("/isloggedin", function(req, res, next) {
-    console.log(req.user);
-    // console.log(req.user)
     if (req.user) {
         res.json({ user: req.user })
     } else {
@@ -219,15 +210,18 @@ app.get("/isloggedin", function(req, res, next) {
 
 app.post("/register", function(req, res){
     var user = new User({name : req.query.name, username : req.query.username});
-    console.log("USER : "+user);
 	User.register(user, req.query.password, function(err, newUser){
-		if(err)
-			console.log(err);
+		if(err) {
+            console.log(err);
+            res.sendStatus(409);
+        }
         else
         {
         	passport.authenticate("local")(req, res, function(){
-         	    if(err)
-         	     	 console.log(err);
+         	    if(err){
+                     console.log(err);
+                     res.sendStatus(401);
+                }
                 else
                 {
                     res.sendStatus(200);
@@ -239,40 +233,39 @@ app.post("/register", function(req, res){
 
 app.get("/logout", function(req, res){
     req.logout();
-    console.log("Server log out...");
+    // console.log("Server log out...");
     res.sendStatus(200);
 });
 
 //Auth functions
-function isLoggedIn(req, res, next){
-    console.log("USER : " + req.user);
-	if(req.user)
-        return next();
-	res.redirect("/login");
-}
+// function isLoggedIn(req, res, next){
+// 	if(req.user)
+//         return next();
+// 	res.redirect("/login");
+// }
 
-function isAuth(req, res, next){
-	if(req.isAuthenticated())
-	{
-		Blog.findById(req.params.id, function(err, foundBlog){
-	    	if(err)
-	    	{
-	    		res.redirect("back");
-	    	}
-	    	else
-	    	{
-	    		if(foundBlog.author.id.equals(req.user._id)){
-	    			return next();
-	    		}
-	    		res.redirect("back");
-	    	}
-		});
-	}
-    else
-    {
-    	res.redirect("/login");
-    }
-}
+// function isAuth(req, res, next){
+// 	if(req.isAuthenticated())
+// 	{
+// 		Blog.findById(req.params.id, function(err, foundBlog){
+// 	    	if(err)
+// 	    	{
+// 	    		res.redirect("back");
+// 	    	}
+// 	    	else
+// 	    	{
+// 	    		if(foundBlog.author.id.equals(req.user._id)){
+// 	    			return next();
+// 	    		}
+// 	    		res.redirect("back");
+// 	    	}
+// 		});
+// 	}
+//     else
+//     {
+//     	res.redirect("/login");
+//     }
+// }
 
 
 
@@ -280,5 +273,5 @@ app.listen(PORT, function(err){
     if(err)
         console.log(err);
     else
-        console.log("Server started...");
+        console.log("Server started on PORT : ", PORT);
 })

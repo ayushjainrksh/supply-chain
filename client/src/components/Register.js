@@ -10,7 +10,8 @@ class Register extends Component {
             name : "",
             username : "",
             password : "",
-            isRegistered: Boolean
+            isRegistered: Boolean,
+            flag : Number
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,21 +28,31 @@ class Register extends Component {
             username: this.state.username,
             password: this.state.password
         }
-        console.log(user);
+        // console.log(user);
 
         axios.post('http://localhost:5000/register', null, {params: user})
         .then(res => {
-            if(res.status == 200)
+            console.log(res.status);
+            if(res.status === 200)
             {
                 console.log("Account created");
                 this.setState({isRegistered: true})
             }
+            else {
+                console.log("Failed to register")
+                this.setState({flag: 2});
+            }
+        })
+        .catch((err) => {
+            console.log(err)
+            console.log("Failed to register!");
+            this.setState({flag: 2});
         })
     }
 
     render() {
-        const {name, username, password, isRegistered} = this.state;
-        if(isRegistered == true)
+        const {name, username, password, isRegistered, flag} = this.state;
+        if(isRegistered === true)
             return <Redirect to={{pathname: "/login"}}></Redirect>
         else {
         return (
@@ -70,6 +81,9 @@ class Register extends Component {
                                 <label htmlFor="password">Password</label>
                             </div>
                         </div>
+                        {flag === 2 &&
+                                <div className="red-text">User already exists!</div>
+                        }
                         <div className="row">
                             <div className="input-field col s12">
                                 <button className="btn waves-effect waves-light" type="submit" name="action">Register

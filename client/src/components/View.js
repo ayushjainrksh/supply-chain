@@ -48,10 +48,9 @@ class View extends Component {
 
         axios.post('http://localhost:5000/blogs/'+this.props.match.params.id, null, {params: comment})
         .then(res => {
-            console.log(res);
-            // this.setState({state: this.state});
-            // this.forceUpdate();
-            console.log(res.data);
+            // console.log(res);
+            this.componentDidMount();
+            // console.log(res.data);
         })
     }
       
@@ -59,7 +58,7 @@ class View extends Component {
         axios.get('http://localhost:5000/blogs/'+this.props.match.params.id)
       .then(res => {
         const data = res.data;
-        console.log(data);
+        // console.log(data);
         const comments = data.comments.map((com, ind) => {
             return {
                 text: com.text,
@@ -79,7 +78,6 @@ class View extends Component {
     }
     
     render() {
-        this.componentDidMount();
         const comments = this.state.comments.map((com, index) => (
             <CommentItem key={index} text={com.text} time={com.time} author={com.author}/>
             ))
@@ -90,9 +88,8 @@ class View extends Component {
                     <div className="col s12 m8">
                         <div className="card large viewCard">
                             <div className="card-image viewCardImage">
-                                <img src="https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"/>
+                                <img alt="Blog" src="https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"/>
                             </div>
-                            {/* <div className="row"> */}
                                 <div className="cardTitle">
                                     <span className="card-title">{this.state.title}</span>
                                 </div>
@@ -103,7 +100,6 @@ class View extends Component {
                                         {this.state.time.substr(0, this.state.time.indexOf('T'))}
                                      </div>
                                 </div>
-                            {/* </div> */}
                             <div className="card-content">
                                 {this.state.description}
                             </div>
@@ -126,9 +122,14 @@ class View extends Component {
                                                 <i className="material-icons">send</i>
                                             </button>
                                             :
+                                            <div>
                                             <button style={{"marginTop":"10px"}} className="btn-small waves-effect waves-light" type="submit" name="action" disabled>
                                                 <i className="material-icons">send</i>
                                             </button>
+                                            <div className="red-text">
+                                                Login to comment on this post.
+                                            </div>
+                                            </div>
                                         }
                                     </div>
                                 </div>

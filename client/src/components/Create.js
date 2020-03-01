@@ -38,7 +38,7 @@ class Blogs extends Component {
     
     render() {
       const {title, description, created} = this.state;
-      if(created == true) {
+      if(created === true) {
         return <Redirect to={{pathname : "/"}}></Redirect>
       }
       else {

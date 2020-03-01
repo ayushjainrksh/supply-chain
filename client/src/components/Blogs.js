@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { NavLink, Route, Switch, useRouteMatch } from 'react-router-dom';
+import { NavLink, Route, Switch } from 'react-router-dom';
 
 import View from "./View"
 
 const BlogItem = (props) => {
     const url = "/blogs/"+props._id;
-    console.log(url)
+    // console.log(url)
     return(
         <div className="col s12 m4">
           <div className="card small">
             <div className="card-image">
-              <img src="https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"></img>
+              <img alt="blog" src="https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"></img>
               <span className="card-title">{props.title}</span>
             </div>
             <div className="card-content">
@@ -24,7 +24,6 @@ const BlogItem = (props) => {
                 {props.time.substr(props.time.indexOf('T')+1,props.time.indexOf('.')-props.time.indexOf('T')-1)}<span> </span>
                 {props.time.substr(0, props.time.indexOf('T'))}
               </div>
-              {/* <View/> */}
             </div>
           </div>
         </div>
@@ -52,7 +51,7 @@ class Blogs extends Component {
       axios.get('http://localhost:5000/blogs')
       .then(res => {
         const data = res.data;
-        console.log(data);
+        // console.log(data);
         const blogs = data.map((blg, ind) => {
           return {
             title: blg.title,

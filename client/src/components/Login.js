@@ -46,13 +46,17 @@ class Login extends Component {
                 this.setState({flag:2})
                 console.log("Failed to log in");
             }
-            console.log(res.data);
+        })
+        .catch((err) => {
+            console.log("Failed to log in");
+            console.log(err);
+            this.setState({flag:2})
         })
     }
 
     render() {
         const {username, password, flag} = this.state;
-        if(this.props.loggedIn==true){
+        if(this.props.loggedIn === true){
             return <Redirect to={{ pathname : "/"}}></Redirect>;
         }
         else {

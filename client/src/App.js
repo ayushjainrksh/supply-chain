@@ -6,7 +6,7 @@ import M from "materialize-css/dist/js/materialize.min.js";
 import "materialize-css/dist/css/materialize.min.css";
 // import logo from './images/logo.png'
 import Navbar from './components/Navbar'
-import Blogs from './components/Blogs'
+// import Blogs from './components/Blogs'
 
 class App extends Component {
   constructor() {
@@ -22,8 +22,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // this.getUser()
     var elem = document.querySelector(".sidenav");
+    //eslint-disable-next-line
     var instance = M.Sidenav.init(elem, {
         edge: "left",
         inDuration: 250
@@ -36,8 +36,8 @@ class App extends Component {
   
   getUser() {
     axios.get('http://localhost:5000/isloggedin').then(response => {
-      console.log('Get user response: ')
-      console.log(response.data)
+      // console.log('Get user response: ')
+      // console.log(response.data)
       if (response.data.user) {
         console.log('Get User: There is a user saved in the server session: ')
         this.setState({
@@ -45,7 +45,7 @@ class App extends Component {
           username: response.data.user.username
         })
       } else {
-        console.log('Get user: no user');
+        // console.log('Get user: no user');
         this.setState({
           loggedIn: false,
           username: null
@@ -108,7 +108,7 @@ class App extends Component {
               <li><NavLink exact  activeStyle={{backgroundColor:"#008580"}} to="/login">Login</NavLink></li>
               }
             </ul>
-            <a href="#" data-target="slide-out" className="sidenav-trigger"><i className="material-icons">menu</i></a>
+            <a href="#!" data-target="slide-out" className="sidenav-trigger"><i className="material-icons">menu</i></a>
           </div>
         </nav>
         <div><Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} username={this.state.username}/></div>
