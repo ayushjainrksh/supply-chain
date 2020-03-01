@@ -1,11 +1,21 @@
 # Supply Chain Blog
 
+A blogging website for the supply chain and logistics where a user can create an account, login and post a blog related to supply chains. Users can visit the blog to view the posts. Any user with an account can comment on the blog if they are logged in. The website is mobile friendly and can be accessed through various devices.
+
+Visit the blog at https://supplyblog.herokuapp.com/
+
+#### Tech Stack (MERN)
+- Front End : React JS
+- Back End  : Node JS
+- Framework : Express JS
+- Database  : MongoDB
+
 ## Requirements
 - Node.js
 - npm
 
 
-## Development
+## Development Set Up
 
 > ### Server Side
 1. Clone the repo with the submodules
@@ -34,3 +44,10 @@
 
 3. Start the server (use sude in case of error)
 ### `npm start`
+
+
+## Contribute :heart:
+
+- Found a bug : *Submit an issue on github.*
+
+- Want to contribute : *Fork the repo, make changes and submit a pull request.*
