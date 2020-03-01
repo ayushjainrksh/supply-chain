@@ -1,6 +1,6 @@
 const express    = require("express"),
       app        = express(),
-      PORT       = 5000||process.env.PORT;
+      PORT       = process.env.PORT || 5000;
       bodyParser = require("body-parser"),
       mongoose   = require("mongoose"),
       cors       = require("cors")
