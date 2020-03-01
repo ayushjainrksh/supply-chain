@@ -3,7 +3,8 @@ const express    = require("express"),
       PORT       = 5000||process.env.PORT;
       bodyParser = require("body-parser"),
       mongoose   = require("mongoose"),
-      cors = require("cors");
+      cors       = require("cors")
+      dotenv  = require("dotenv").config();
 
 const passport = require("passport"),
       localStrategy = require("passport-local"),
@@ -14,7 +15,9 @@ app.use(express.static("assets"));
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(cors());
 
-mongoose.connect("mongodb://localhost/supply_db", {useNewUrlParser: true, useUnifiedTopology: true });
+// console.log(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGO_URI || "mongodb://localhost/supply_db", {useNewUrlParser: true, useUnifiedTopology: true });
+// mongoose.connect("mongodb://ajrksh:Ayush123@ds159624.mlab.com:59624/supply_db", {useNewUrlParser: true, useUnifiedTopology: true });
 
 // ############################
 //          SCHEMAS
@@ -54,7 +57,7 @@ const Comment = mongoose.model("Comment", commentSchema);
 // Blog Schema
 const blogSchema = new mongoose.Schema({
     title : String,
-    // image : String,
+    image : String,
     description : String,
     author : {
         id : {
@@ -112,6 +115,7 @@ app.post("/", function(req, res) {
             Blog.create({
                 title : req.query.title,
                 description : req.query.description,
+                image : req.query.image,
                 author : {
                     id : user._id,
                     username : req.query.username

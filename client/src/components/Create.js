@@ -10,6 +10,7 @@ class Blogs extends Component {
       this.state = {
         title: "",
         description: "",
+        image: "",
         created: Boolean
       }
   
@@ -26,6 +27,7 @@ class Blogs extends Component {
         const blog = {
             title: this.state.title,
             description: this.state.description,
+            image: this.state.image,
             username: this.props.username
         }
         console.log(blog);
@@ -37,7 +39,7 @@ class Blogs extends Component {
     }
     
     render() {
-      const {title, description, created} = this.state;
+      const {title, description, image, created} = this.state;
       if(created === true) {
         return <Redirect to={{pathname : "/"}}></Redirect>
       }
@@ -51,6 +53,12 @@ class Blogs extends Component {
                 <div className="input-field col s12">
                   <input id="title" key="title" type="text" name="title" value={title} onChange={this.handleChange} required/>
                 <label htmlFor="title">Title</label>
+                </div>
+              </div>
+              <div className="row">
+                <div className="input-field col s12">
+                  <input id="image" key="image" type="text" name="image" value={image} onChange={this.handleChange} required/>
+                <label htmlFor="title">Image URL</label>
                 </div>
               </div>
               <div className="row">

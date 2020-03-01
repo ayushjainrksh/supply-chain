@@ -5,7 +5,7 @@ import '../App.css'
 const CommentItem = (props) => {
     return(
         <div className="card-panel comment">
-            <strong>{props.author}</strong>
+            <strong>{props.author.substr(0, props.author.indexOf('@'))}</strong>
             <span id="comTime">
             {props.time.substr(props.time.indexOf('T')+1,props.time.indexOf('.')-props.time.indexOf('T')-1)}<span> </span>
             {props.time.substr(0, props.time.indexOf('T'))}
@@ -22,6 +22,7 @@ class View extends Component {
             text: "",
             title: "",
             description: "",
+            image: "",
             author: "",
             time: "",
             comments: [{
@@ -49,6 +50,7 @@ class View extends Component {
         axios.post('http://localhost:5000/blogs/'+this.props.match.params.id, null, {params: comment})
         .then(res => {
             // console.log(res);
+            this.setState({text: ""})
             this.componentDidMount();
             // console.log(res.data);
         })
@@ -69,6 +71,7 @@ class View extends Component {
         const blog = {
             title: data.title,
             description: data.description,
+            image: data.image,
             author: data.author.username,
             time: data.createdAt,
             _id: data._id
@@ -88,13 +91,13 @@ class View extends Component {
                     <div className="col s12 m8">
                         <div className="card large viewCard">
                             <div className="card-image viewCardImage">
-                                <img alt="Blog" src="https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"/>
+                                <img alt="Blog" src={this.state.image}/>
                             </div>
                                 <div className="cardTitle">
                                     <span className="card-title">{this.state.title}</span>
                                 </div>
                                 <div className="cardAuthor">
-                                    <div><strong>{this.state.author}</strong></div>
+                                    <div><strong>{this.state.author.substr(0, this.state.author.indexOf('@'))}</strong></div>
                                     <div className="cardTime">
                                         {this.state.time.substr(this.state.time.indexOf('T')+1,this.state.time.indexOf('.')-this.state.time.indexOf('T')-1)}<span> </span>
                                         {this.state.time.substr(0, this.state.time.indexOf('T'))}

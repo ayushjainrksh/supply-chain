@@ -23,6 +23,8 @@
 
 #comTime {
   color: gray;
+  font-size: 0.8em;
+  margin-left: 30px;
 }
 
 #comText {
@@ -31,6 +33,15 @@
 
 .cardTitle {
   margin: 1em 2em;
+}
+
+.textColor {
+  width: 100%;
+  background-color: rgb(0,0,0,0.5) !important;
+  padding: 0 !important;
+  text-align: center;
+  /* background-color: black; */
+  /* filter: blur(12px); */
 }
 
 .cardAuthor {

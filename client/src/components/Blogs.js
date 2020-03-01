@@ -11,8 +11,8 @@ const BlogItem = (props) => {
         <div className="col s12 m4">
           <div className="card small">
             <div className="card-image">
-              <img alt="blog" src="https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"></img>
-              <span className="card-title">{props.title}</span>
+              <img alt="blog" src={props.image}></img>
+              <span className="card-title textColor">{props.title}</span>
             </div>
             <div className="card-content">
               <p>{props.description}</p>
@@ -38,6 +38,7 @@ class Blogs extends Component {
         blogs: [{
           title: "",
           description: "",
+          image: "",
           author: "",
           time: "",
           id: ""
@@ -56,6 +57,7 @@ class Blogs extends Component {
           return {
             title: blg.title,
             description: blg.description,
+            image: blg.image,
             author: blg.author.username,
             time: blg.createdAt,
             _id: blg._id
@@ -67,7 +69,7 @@ class Blogs extends Component {
   
     render() {
       const blogs = this.state.blogs.map((blg, index) => (
-        <BlogItem key={index} title={blg.title} description={blg.description} author={blg.author} time={blg.time} _id={blg._id}/>
+        <BlogItem key={index} title={blg.title} description={blg.description} image={blg.image} author={blg.author} time={blg.time} _id={blg._id}/>
         ))
       return(
         <div className="row">
