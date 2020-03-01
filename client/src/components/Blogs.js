@@ -4,6 +4,21 @@ import { NavLink, Route, Switch } from 'react-router-dom';
 
 import View from "./View"
 
+const Date = (props) => {
+  let time = props.time.substr(props.time.indexOf('T')+1,props.time.indexOf('.')-props.time.indexOf('T')-1)
+  let date = props.time.substr(0, props.time.indexOf('T'))
+  
+  if(parseInt(time.substr(0,2)) < 12) 
+    time = time.substr(0,5)+"AM"
+  else
+    time = parseInt(time.substr(0,2))-12+time.substr(2,3)+"PM"
+
+  let dateArr = date.split("-")
+  let monthArr = ['Jan', 'Feb', 'Mar', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+  let month = monthArr[parseInt(dateArr[1])-1]
+  return <span>{month +" "+ parseInt(dateArr[2])+", "+ dateArr[0]}, {time}</span>
+}
+
 const BlogItem = (props) => {
     const url = "/blogs/"+props._id;
     // console.log(url)
@@ -14,15 +29,14 @@ const BlogItem = (props) => {
               <img alt="blog" src={props.image}></img>
               <span className="card-title textColor">{props.title}</span>
             </div>
-            <div className="card-content">
-              <p>{props.description}</p>
+            <div className="card-content truncate">
+              {props.description}
             </div>
             <div className="card-action">
               <NavLink to={url} className="btn btn-small waves-effect waves-light">View post</NavLink>
               <div className="cardTime right">
-                <div><strong>{props.author}</strong></div>
-                {props.time.substr(props.time.indexOf('T')+1,props.time.indexOf('.')-props.time.indexOf('T')-1)}<span> </span>
-                {props.time.substr(0, props.time.indexOf('T'))}
+                <div><strong>{props.author.substr(0, props.author.indexOf('@'))}</strong></div>
+                <Date {...props}/>
               </div>
             </div>
           </div>
@@ -49,7 +63,7 @@ class Blogs extends Component {
 
     componentDidMount() {
 
-      axios.get('http://localhost:5000/blogs')
+      axios.get('https://supplyc.herokuapp.com/blogs')
       .then(res => {
         const data = res.data;
         // console.log(data);

@@ -30,7 +30,7 @@ class Register extends Component {
         }
         // console.log(user);
 
-        axios.post('http://localhost:5000/register', null, {params: user})
+        axios.post('https://supplyc.herokuapp.com/register', null, {params: user})
         .then(res => {
             console.log(res.status);
             if(res.status === 200)

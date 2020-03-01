@@ -14,7 +14,7 @@ class Logout extends Component {
 
     logout() {
         console.log('logging out')
-        axios.get('http://localhost:5000/logout').then(response => {
+        axios.get('https://supplyc.herokuapp.com/logout').then(response => {
           console.log(response.data)
           if (response.status === 200) {
             this.props.updateUser({

@@ -37,7 +37,7 @@ class App extends Component {
   }
   
   getUser() {
-    axios.get('http://localhost:5000/isloggedin').then(response => {
+    axios.get('https://supplyc.herokuapp.com/isloggedin').then(response => {
       // console.log('Get user response: ')
       // console.log(response.data)
       if (response.data.user) {
@@ -61,7 +61,7 @@ class App extends Component {
       <div>
         <nav className="teal">
           <div className="nav-wrapper">
-            <NavLink to="/" className="brand-logo">SupplyChain<i className="navIcons material-icons">airport_shuttle</i></NavLink>
+            <NavLink to="/" style={{width: "75%"}} className="brand-logo"><span>SupplyChain</span><span><i className="navIcons material-icons">airport_shuttle</i></span></NavLink>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
               <li>  {this.state.loggedIn &&
                     <div style={{margin: "0 20px"}}>

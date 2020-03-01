@@ -3,7 +3,8 @@ const express    = require("express"),
       PORT       = process.env.PORT || 5000;
       bodyParser = require("body-parser"),
       mongoose   = require("mongoose"),
-      cors       = require("cors")
+      cors       = require("cors"),
+    //   path       = require("path"),
       dotenv  = require("dotenv").config();
 
 const passport = require("passport"),
@@ -14,6 +15,7 @@ app.set("view engine","ejs");
 app.use(express.static("assets"));
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(cors());
+// app.use(express.static(path.join(__dirname, 'client/build')));
 
 // console.log(process.env.MONGO_URI)
 mongoose.connect(process.env.MONGO_URI || "mongodb://localhost/supply_db", {useNewUrlParser: true, useUnifiedTopology: true });
@@ -99,6 +101,12 @@ app.use(function(req, res, next){
 // ########################
 //          ROUTES
 // ########################
+
+
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname+'/client/build/index.html'));
+// });
+
 
 //Test Route
 app.get("/", function(req, res){

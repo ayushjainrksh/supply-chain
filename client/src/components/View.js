@@ -2,13 +2,29 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import '../App.css'
 
+const Date = (props) => {
+    let time = props.time.substr(props.time.indexOf('T')+1,props.time.indexOf('.')-props.time.indexOf('T')-1)
+    let date = props.time.substr(0, props.time.indexOf('T'))
+    
+    if(parseInt(time.substr(0,2)) < 12) 
+      time = time.substr(0,5)+"AM"
+    else
+      time = parseInt(time.substr(0,2))-12+time.substr(2,3)+"PM"
+  
+    let dateArr = date.split("-")
+    let monthArr = ['Jan', 'Feb', 'Mar', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+    let month = monthArr[parseInt(dateArr[1])-1]
+    return <span>{month +" "+ parseInt(dateArr[2])+", "+ dateArr[0]}, {time}</span>
+  }
+
 const CommentItem = (props) => {
     return(
         <div className="card-panel comment">
             <strong>{props.author.substr(0, props.author.indexOf('@'))}</strong>
             <span id="comTime">
-            {props.time.substr(props.time.indexOf('T')+1,props.time.indexOf('.')-props.time.indexOf('T')-1)}<span> </span>
-            {props.time.substr(0, props.time.indexOf('T'))}
+            <Date {...props}/>
+            {/* {props.time.substr(props.time.indexOf('T')+1,props.time.indexOf('.')-props.time.indexOf('T')-1)}<span> </span>
+            {props.time.substr(0, props.time.indexOf('T'))} */}
             </span>
             <div id="comText">{props.text}</div>
         </div>
@@ -47,7 +63,7 @@ class View extends Component {
         }
         console.log(comment);
 
-        axios.post('http://localhost:5000/blogs/'+this.props.match.params.id, null, {params: comment})
+        axios.post('https://supplyc.herokuapp.com/blogs/'+this.props.match.params.id, null, {params: comment})
         .then(res => {
             // console.log(res);
             this.setState({text: ""})
@@ -57,7 +73,7 @@ class View extends Component {
     }
       
     componentDidMount() {
-        axios.get('http://localhost:5000/blogs/'+this.props.match.params.id)
+        axios.get('https://supplyc.herokuapp.com/blogs/'+this.props.match.params.id)
       .then(res => {
         const data = res.data;
         // console.log(data);
@@ -99,8 +115,7 @@ class View extends Component {
                                 <div className="cardAuthor">
                                     <div><strong>{this.state.author.substr(0, this.state.author.indexOf('@'))}</strong></div>
                                     <div className="cardTime">
-                                        {this.state.time.substr(this.state.time.indexOf('T')+1,this.state.time.indexOf('.')-this.state.time.indexOf('T')-1)}<span> </span>
-                                        {this.state.time.substr(0, this.state.time.indexOf('T'))}
+                                        <Date {...this.state}/>
                                      </div>
                                 </div>
                             <div className="card-content">

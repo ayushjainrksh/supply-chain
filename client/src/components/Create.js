@@ -32,7 +32,7 @@ class Blogs extends Component {
         }
         console.log(blog);
   
-        axios.post('http://localhost:5000/', null, {params: blog})
+        axios.post('https://supplyc.herokuapp.com/', null, {params: blog})
         .then(res => {
             this.setState({created: true});
         })
