@@ -1,0 +1,3 @@
+[submodule "client"]
+	path = client
+	url = git@REMOTE_URL:git@github.com:ayushjainrksh/supply-chain-frontend.git
