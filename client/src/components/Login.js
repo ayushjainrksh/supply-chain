@@ -40,6 +40,8 @@ class Login extends Component {
                     loggedIn: true,
                     username: res.data
                 })
+                localStorage.setItem("loggedIn", true)
+                localStorage.setItem("username", res.data);
             }
             else
             {

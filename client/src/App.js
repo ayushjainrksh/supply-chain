@@ -28,6 +28,8 @@ class App extends Component {
         edge: "left",
         inDuration: 250
     });
+
+    this.setState({loggedIn: localStorage.getItem('loggedIn'), username: localStorage.getItem('username')})
   }
   
   updateUser(userObject) {

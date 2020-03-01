@@ -197,6 +197,7 @@ app.post("/login", passport.authenticate("local",{
         //  successRedirect : "/success",
          failureRedirect : "/failure"
 }), function(req, res) {
+    // console.log(res);
     res.send(req.user.username);
 });
 

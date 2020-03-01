@@ -21,6 +21,8 @@ class Logout extends Component {
               loggedIn: false,
               username: null
             })
+            localStorage.removeItem('loggedIn');
+            localStorage.removeItem('username');
           }
         }).catch(error => {
             console.log('Logout error')
