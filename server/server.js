@@ -4,7 +4,6 @@ const express    = require("express"),
       bodyParser = require("body-parser"),
       mongoose   = require("mongoose"),
       cors       = require("cors"),
-    //   path       = require("path"),
       dotenv  = require("dotenv").config();
 
 const passport = require("passport"),
@@ -15,11 +14,8 @@ app.set("view engine","ejs");
 app.use(express.static("assets"));
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(cors());
-// app.use(express.static(path.join(__dirname, 'client/build')));
 
-// console.log(process.env.MONGO_URI)
 mongoose.connect(process.env.MONGO_URI || "mongodb://localhost/supply_db", {useNewUrlParser: true, useUnifiedTopology: true });
-// mongoose.connect("mongodb://ajrksh:Ayush123@ds159624.mlab.com:59624/supply_db", {useNewUrlParser: true, useUnifiedTopology: true });
 
 // ############################
 //          SCHEMAS
@@ -103,11 +99,6 @@ app.use(function(req, res, next){
 // ########################
 
 
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname+'/client/build/index.html'));
-// });
-
-
 //Test Route
 app.get("/", function(req, res){
     res.send(JSON.stringify({Hi:"hello"}));
@@ -119,7 +110,6 @@ app.post("/", function(req, res) {
         if (err) {
             console.log(err)
         } else if (user) {
-            // console.log(user);
             Blog.create({
                 title : req.query.title,
                 description : req.query.description,
@@ -133,7 +123,6 @@ app.post("/", function(req, res) {
                     console.log(err);
                 else{
                     foundBlog.save();
-                    // console.log(foundBlog);
                     res.redirect("/");
                 }
             });
@@ -155,7 +144,6 @@ app.get("/blogs/:id", function(req, res){
         if(err)
             console.log(err);
         else
-            // console.log(foundBlog);
             res.send(foundBlog);
     });
 });
@@ -184,7 +172,6 @@ app.post("/blogs/:id", function(req, res) {
                         else
                         {
                             newComment.save();
-                            // console.log(newComment);
                             foundBlog.comments.push(newComment);
                             foundBlog.save();
                             res.sendStatus(200);
@@ -196,20 +183,14 @@ app.post("/blogs/:id", function(req, res) {
     });
 });
 
-//      Auth Routes
-app.get("/success", function(req, res){
-    res.send(req.user.username);
-});
-
+//Auth Routes
 app.get("/failure", function(req, res){
     res.sendStatus(401);
 });
 
 app.post("/login", passport.authenticate("local",{
-        //  successRedirect : "/success",
          failureRedirect : "/failure"
 }), function(req, res) {
-    // console.log(res);
     res.send(req.user.username);
 });
 
@@ -246,40 +227,8 @@ app.post("/register", function(req, res){
 
 app.get("/logout", function(req, res){
     req.logout();
-    // console.log("Server log out...");
     res.sendStatus(200);
 });
-
-//Auth functions
-// function isLoggedIn(req, res, next){
-// 	if(req.user)
-//         return next();
-// 	res.redirect("/login");
-// }
-
-// function isAuth(req, res, next){
-// 	if(req.isAuthenticated())
-// 	{
-// 		Blog.findById(req.params.id, function(err, foundBlog){
-// 	    	if(err)
-// 	    	{
-// 	    		res.redirect("back");
-// 	    	}
-// 	    	else
-// 	    	{
-// 	    		if(foundBlog.author.id.equals(req.user._id)){
-// 	    			return next();
-// 	    		}
-// 	    		res.redirect("back");
-// 	    	}
-// 		});
-// 	}
-//     else
-//     {
-//     	res.redirect("/login");
-//     }
-// }
-
 
 
 app.listen(PORT, function(err){
@@ -287,4 +236,4 @@ app.listen(PORT, function(err){
         console.log(err);
     else
         console.log("Server started on PORT : ", PORT);
-})
+});
